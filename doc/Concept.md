@@ -103,11 +103,11 @@ FATA[0007] Cluster creation FAILED, all changes have been rolled back!
 
 So `podman` does not seem to be a good option for start-up project where speed of development matters and so infrastructure should be able to be maintained smoothly as well.
 
-### Decision Graph
-TBD (Provide options, decisions and conditions via draw.io)
+### Decision Algorithm
+![Decision Algorithm](.data/Local_Kubernetes_Choices_Algorithm.png)
 
 ### Recommended Tool
-`k3d` is ligtweight solution with minimal set of core features that shoud be enough for MVP and PoC start-up project phases.
+`k3d` is ligtweight solution with minimal set of core features that shoud be enough for PoC and MVP start-up project phases.
 And later on in case of project success and growth it will be possible to migrate into full-fledged and heavy `k8s` solution.
 
 ### Usage Demo
