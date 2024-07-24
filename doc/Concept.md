@@ -112,6 +112,6 @@ And later on in case of project success and growth it will be possible to migrat
 
 ### Usage Demo
 
-![Image](.data/k3d-test-demo.gif)
+![k3d test demo](.data/k3d-test-demo.gif)
 
 [asciinema demo link](https://asciinema.org/a/KDYmKLnz0TPskucNIakHYs20O)
