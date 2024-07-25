@@ -1,5 +1,5 @@
 
-### Comparison table
+### Local Kubernetes Comparison
 
 | Criteria                          | Minikube                                                                                          | Kind (Kubernetes IN Docker)                                                                        | K3d (K3s in Docker)                                                                                |
 |-----------------------------------|---------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
@@ -16,12 +16,24 @@
 | **Documentation and Community**   | Extensive documentation and a large, active community.                                            | Good documentation and a growing community.                                                       | Good documentation and community support, but slightly smaller than Minikube's.                   |
 | **Complexity of Configuration**   | Can be complex due to various configuration options and VM dependencies.                          | Relatively simple configuration, primarily around Docker.                                         | Simple configuration, focused on lightweight Kubernetes clusters.                                |
 
+---
+
 ### Pros and Cons
 
 | Criteria                          | Minikube                                                                                          | Kind                                                                                              | K3d                                                                                               |
 |-----------------------------------|---------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
 | **Pros**                          | - User-friendly<br>- Extensive documentation<br>- Wide community support                         | - Lightweight<br>- Fast deployment<br>- Integrates well with Docker                               | - Very lightweight<br>- Extremely fast deployment<br>- Good for CI/CD<br>- Minimal resource usage |
 | **Cons**                          | - Requires VM, which can be resource-intensive<br>- Slower deployment compared to container-based solutions | - May need more manual setup for advanced use cases<br>- Smaller community than Minikube         | - Smaller community<br>- Limited to K3s features, which may differ from full Kubernetes          |
+
+---
+
+### Benchmarks
+
+Minikube community benchmarks for `minikube`, `kind` and `k3d` are available [here](https://minikube.sigs.k8s.io/docs/benchmarks/timetok8s/v1.33.1/)
+
+![Benchmarks](.data/time_benchmarks.png)
+
+---
 
 ### Docker VS Podman
 
@@ -34,7 +46,9 @@ After experiments with Podman a few issues were encountered:
 * `kind` can't load podman images, needs some extraction into archive and still it does not work.
 * All present kubernetes ecosystem mostly relies on Docker while Podman support is experimental.
 
-### Kind + Podman
+---
+
+#### Kind + Podman
 
 At my OSX laptop it was possible to create clusted via `kind` + `podman`. [Read more here](https://kind.sigs.k8s.io/docs/user/rootless/)
 But still it warns that it is an experiamental feature:
@@ -51,7 +65,9 @@ Creating cluster "kind-podman-test-cluster-2" ...
  ✓ Installing StorageClass 💾
 ```
 
-### Minikube + Podman   
+---
+
+#### Minikube + Podman   
 
 It also it warns that it is an experimental feature and moreover it got got some errors at startup.
 
@@ -78,7 +94,9 @@ E0724 01:47:29.518474   32970 start.go:131] Unable to get host IP: RoutableHostI
 🏄  Done! kubectl is now configured to use "minikube-test-cluster" cluster and "default" namespace by default
 ```
 
-### k3d + Podman at macOS
+---
+
+#### k3d + Podman at macOS
 Experimental configuration is shown [here](https://k3d.io/v5.6.3/usage/advanced/podman/#macos)
 It seem it is too much docker dependand, that it requires some hacking to substitute docker environemnt variables in order to get k3d working with podman.
 At my local configuration I did not get it working at OSX.
@@ -103,12 +121,18 @@ FATA[0007] Cluster creation FAILED, all changes have been rolled back!
 
 So `podman` does not seem to be a good option for start-up project where speed of development matters and so infrastructure should be able to be maintained smoothly as well.
 
+---
+
 ### Decision Algorithm
 ![Decision Algorithm](.data/Local_Kubernetes_Choices_Algorithm.png)
 
+---
+
 ### Recommended Tool
-`k3d` is ligtweight solution with minimal set of core features that shoud be enough for PoC and MVP start-up project phases.
-And later on in case of project success and growth it will be possible to migrate into full-fledged and heavy `k8s` solution.
+`k3d` + `docker` is ligtweight solution with minimal set of core features that should be enough for PoC and MVP start-up project phases.
+And later on in case of project success and growth and actual need it will be possible to migrate into full-fledged and heavy `k8s` solution.
+
+---
 
 ### Usage Demo
 
